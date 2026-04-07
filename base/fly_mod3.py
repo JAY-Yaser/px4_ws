@@ -1,6 +1,6 @@
 import time
 from pymavlink import mavutil
-#机体位置控制，相对于机身方向飞行
+#机体位置控制，相对于机身方向飞行，速度控制模式
 # 1. 建立连接
 connection = mavutil.mavlink_connection('udp:127.0.0.1:14540')
 
