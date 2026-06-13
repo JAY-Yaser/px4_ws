@@ -547,7 +547,7 @@
     <!-- Hazard sign inside cylinder 4 -->
     <model name="hazard_C4">
       <static>true</static>
-      <pose>3.20 61.01 0.013 -1.5708 0 0</pose>
+      <pose>3.20 61.01 0.013 0 0 0</pose>
       <link name="haz4_link">
         <visual name="haz4_visual">
           <geometry>
@@ -606,7 +606,7 @@
     <!-- Hazard sign inside cylinder 5 -->
     <model name="hazard_C5">
       <static>true</static>
-      <pose>1.22 58.49 0.013 -1.5708 0 0</pose>
+      <pose>1.22 58.49 0.013 0 0 0</pose>
       <link name="haz5_link">
         <visual name="haz5_visual">
           <geometry>
@@ -665,7 +665,7 @@
     <!-- Hazard sign inside cylinder 6 -->
     <model name="hazard_C6">
       <static>true</static>
-      <pose>-3.35 60.09 0.013 -1.5708 0 0</pose>
+      <pose>-3.35 60.09 0.013 0 0 0</pose>
       <link name="haz6_link">
         <visual name="haz6_visual">
           <geometry>
