@@ -27,7 +27,7 @@ gz sim worlds/indoor_20x20.sdf
 
 **Run with PX4 (X500 drone):**
 ```bash
-bash ../launch_indoor.sh
+bash ../launch/launch_indoor.sh
 ```
 
 ### CUADC_UAV01 — 300m×300m outdoor race track
@@ -40,7 +40,7 @@ bash ../launch_indoor.sh
 
 **Run with PX4 (X500 drone):**
 ```bash
-bash ../launch_cuadc.sh
+bash ../launch/launch_cuadc.sh
 ```
 
 ### CUADC_UAV02 — Race track with cylinder obstacles
@@ -53,7 +53,7 @@ Same as CUADC_UAV01 plus:
 
 **Run with PX4 (X500 drone):**
 ```bash
-bash ../launch_cuadc2.sh
+bash ../launch/launch_cuadc2.sh
 ```
 
 ## Usage

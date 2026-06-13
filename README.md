@@ -17,15 +17,17 @@ px4_ws/
 │   │   ├── CUADC_UAV01.sdf     # 300m 室外赛道（基础）
 │   │   └── CUADC_UAV02.sdf     # 300m 室外赛道（含障碍物）
 │   └── models/             # 自定义模型（扩展用）
+├── launch/                  # 一键启动脚本
+│   ├── launch_indoor.sh         # 启动: indoor_20x20
+│   ├── launch_cuadc.sh          # 启动: CUADC_UAV01
+│   └── launch_cuadc2.sh         # 启动: CUADC_UAV02
 ├── base/                   # PX4 基础控制脚本
 ├── fly_mod/                # 飞行模式示例
 ├── plane/                  # 固定翼
 ├── mission/                # 任务飞行
 ├── hand/                   # 手势识别
 ├── cv/                     # 计算机视觉
-├── launch_indoor.sh        # 启动: indoor_20x20
-├── launch_cuadc.sh         # 启动: CUADC_UAV01
-└── launch_cuadc2.sh        # 启动: CUADC_UAV02
+└── README.md
 ```
 
 ## Gazebo 世界场景
@@ -41,7 +43,7 @@ px4_ws/
 | 起降点 | 房间中心 (0, 0, 0.3) |
 
 ```bash
-bash launch_indoor.sh
+bash launch/launch_indoor.sh
 ```
 
 ### CUADC_UAV01 — 室外赛道（基础）
@@ -55,7 +57,7 @@ bash launch_indoor.sh
 | 无人机朝向 | +Y（逆时针偏航 90°） |
 
 ```bash
-bash launch_cuadc.sh
+bash launch/launch_cuadc.sh
 ```
 
 ### CUADC_UAV02 — 室外赛道（含障碍物）
@@ -74,7 +76,7 @@ bash launch_cuadc.sh
 - 其中 3 个筒内放置 12×12cm 红色危险化学品标识
 
 ```bash
-bash launch_cuadc2.sh
+bash launch/launch_cuadc2.sh
 ```
 
 ### 单独预览场景（无无人机）
