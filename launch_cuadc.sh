@@ -52,6 +52,7 @@ cd "$PX4_DIR"
 
 PX4_GZ_STANDALONE=1 \
 PX4_GZ_WORLD="$WNAME" \
+PX4_GZ_MODEL_POSE="0,0,0,0,0,1.5708" \
 make px4_sitl gz_x500
 
 # ---- Cleanup on PX4 exit --------------------------------------------------
