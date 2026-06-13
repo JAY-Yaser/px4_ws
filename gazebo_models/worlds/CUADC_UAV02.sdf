@@ -1,0 +1,713 @@
+<?xml version="1.0" ?>
+<sdf version="1.11">
+  <!--
+    CUADC_UAV02 — Outdoor race track + cylinder obstacles + hazard signs
+    Same as CUADC_UAV01 plus:
+    - Region 1 (y:32..37): 3 white hollow cylinders, H=30cm, D=15/20/25cm
+    - Region 2 (y:57..62): 5 white hollow cylinders, H=15cm, D=20cm
+      (3 of them contain 12×12cm hazard chemical signs)
+
+    Usage:
+      gz sim worlds/CUADC_UAV02.sdf
+      bash launch_cuadc2.sh
+  -->
+  <world name="CUADC_UAV02">
+
+    <!-- ===== Physics & Environment ===== -->
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type="adiabatic"/>
+
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <world_frame_orientation>ENU</world_frame_orientation>
+      <latitude_deg>47.397971057728974</latitude_deg>
+      <longitude_deg>8.546163739800146</longitude_deg>
+      <elevation>0</elevation>
+    </spherical_coordinates>
+
+    <!-- World-level system plugins (same as PX4 default) -->
+    <plugin filename="gz-sim-physics-system"       name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-user-commands-system"  name="gz::sim::systems::UserCommands"/>
+    <plugin filename="gz-sim-sensors-system"        name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-contact-system"        name="gz::sim::systems::Contact"/>
+    <plugin filename="gz-sim-imu-system"            name="gz::sim::systems::Imu"/>
+    <plugin filename="gz-sim-magnetometer-system"   name="gz::sim::systems::Magnetometer"/>
+    <plugin filename="gz-sim-navsat-system"         name="gz::sim::systems::NavSat"/>
+    <plugin filename="gz-sim-air-pressure-system"   name="gz::sim::systems::AirPressure"/>
+    <plugin filename="gz-sim-air-speed-system"      name="gz::sim::systems::AirSpeed"/>
+    <plugin filename="gz-sim-apply-link-wrench-system" name="gz::sim::systems::ApplyLinkWrench"/>
+    <plugin filename="gz-sim-wind-system"           name="gz::sim::systems::Wind"/>
+
+    <!-- ===== Scene ===== -->
+    <scene>
+      <ambient>0.5 0.5 0.5 1.0</ambient>
+      <background>0.5 0.6 0.8 1.0</background>
+      <shadows>true</shadows>
+      <grid>false</grid>
+    </scene>
+
+    <!-- ===== Sunlight ===== -->
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 100 0 0 0</pose>
+      <diffuse>1.0 1.0 0.95 1</diffuse>
+      <specular>0.3 0.3 0.3 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>0.2 -0.3 -0.9</direction>
+    </light>
+
+    <!-- ===== GUI ===== -->
+    <gui fullscreen="0">
+      <plugin filename="MinimalScene" name="3D View">
+        <gz-gui>
+          <title>3D View</title>
+          <property type="bool" key="showTitleBar">false</property>
+          <property type="string" key="state">docked</property>
+        </gz-gui>
+        <engine>ogre2</engine>
+        <scene>scene</scene>
+        <ambient_light>0.4 0.4 0.4</ambient_light>
+        <background_color>0.8 0.8 0.8</background_color>
+        <camera_pose>-20 -10 40 0 0.6 0.5</camera_pose>
+      </plugin>
+      <plugin filename="GzSceneManager" name="Scene Manager">
+        <gz-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="InteractiveViewControl" name="Interactive view control">
+        <gz-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="CameraTracking" name="Camera Tracking">
+        <gz-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="TransformControl" name="Transform control">
+        <gz-gui>
+          <title>Transform control</title>
+          <anchors target="3D View">
+            <line own="left" target="left"/>
+            <line own="top" target="top"/>
+          </anchors>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">230</property>
+          <property key="height" type="double">50</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+          <property key="cardBackground" type="string">#666666</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="WorldControl" name="World control">
+        <gz-gui>
+          <title>World control</title>
+          <property type="bool" key="showTitleBar">false</property>
+          <property type="bool" key="resizable">false</property>
+          <property type="double" key="height">72</property>
+          <property type="double" key="z">1</property>
+          <property type="string" key="state">floating</property>
+          <anchors target="3D View">
+            <line own="left" target="left"/>
+            <line own="bottom" target="bottom"/>
+          </anchors>
+        </gz-gui>
+        <play_pause>true</play_pause>
+        <step>true</step>
+        <start_paused>true</start_paused>
+        <use_event>true</use_event>
+      </plugin>
+      <plugin filename="WorldStats" name="World stats">
+        <gz-gui>
+          <title>World stats</title>
+          <property type="bool" key="showTitleBar">false</property>
+          <property type="bool" key="resizable">false</property>
+          <property type="double" key="height">110</property>
+          <property type="double" key="width">290</property>
+          <property type="double" key="z">1</property>
+          <property type="string" key="state">floating</property>
+          <anchors target="3D View">
+            <line own="right" target="right"/>
+            <line own="bottom" target="bottom"/>
+          </anchors>
+        </gz-gui>
+        <sim_time>true</sim_time>
+        <real_time>true</real_time>
+        <real_time_factor>true</real_time_factor>
+        <iterations>true</iterations>
+      </plugin>
+      <plugin filename="ComponentInspector" name="Component inspector">
+        <gz-gui>
+          <property type="string" key="state">docked_collapsed</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="EntityTree" name="Entity tree">
+        <gz-gui>
+          <property type="string" key="state">docked_collapsed</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="KeyPublisher" name="Key publisher">
+        <gz-gui>
+          <anchors target="3D View">
+            <line own="right" target="right"/>
+            <line own="top" target="top"/>
+          </anchors>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="EntityContextMenuPlugin" name="Entity context menu">
+        <gz-gui>
+          <property key="state" type="string">floating</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+    </gui>
+
+    <!-- ================================================================= -->
+    <!--  Ground — 300m × 300m flat plane                                  -->
+    <!-- ================================================================= -->
+    <model name="ground">
+      <static>true</static>
+      <pose>0 0 -0.005 0 0 0</pose>
+      <link name="ground_link">
+        <collision name="ground_collision">
+          <geometry>
+            <box>
+              <size>300 300 0.01</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="ground_visual">
+          <geometry>
+            <box>
+              <size>300 300 0.01</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.35 0.3 1</ambient>
+            <diffuse>0.35 0.42 0.35 1</diffuse>
+            <specular>0.05 0.05 0.05 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ================================================================= -->
+    <!--  Track — dark gray runway 8m × 65m, y: -3 to 62                   -->
+    <!--  Centered at (0, 29.5)                                            -->
+    <!-- ================================================================= -->
+    <model name="track">
+      <static>true</static>
+      <pose>0 29.5 0.005 0 0 0</pose>
+      <link name="track_link">
+        <collision name="track_collision">
+          <geometry>
+            <box>
+              <size>8 65 0.01</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="track_visual">
+          <geometry>
+            <box>
+              <size>8 65 0.01</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.25 0.25 0.25 1</ambient>
+            <diffuse>0.3 0.3 0.3 1</diffuse>
+            <specular>0.05 0.05 0.05 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ================================================================= -->
+    <!--  Takeoff pad — orange circle Ø1m at origin (0, 0)                  -->
+    <!-- ================================================================= -->
+    <model name="takeoff_pad">
+      <static>true</static>
+      <pose>0 0 0.012 0 0 0</pose>
+      <link name="pad_link">
+        <visual name="pad_visual">
+          <geometry>
+            <cylinder>
+              <length>0.005</length>
+              <radius>0.5</radius>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>1.0 0.5 0.0 1</ambient>
+            <diffuse>1.0 0.55 0.0 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ================================================================= -->
+    <!--  White "H" marker at origin (on the orange pad)                    -->
+    <!--  Built from 3 boxes: two vertical + one horizontal                 -->
+    <!-- ================================================================= -->
+    <model name="H_marker">
+      <static>true</static>
+      <pose>0 0 0.016 0 0 0</pose>
+      <link name="H_link">
+        <!-- Left vertical bar -->
+        <visual name="H_left">
+          <pose>-0.15 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.08 0.5 0.005</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+        </visual>
+        <!-- Right vertical bar -->
+        <visual name="H_right">
+          <pose>0.15 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.08 0.5 0.005</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+        </visual>
+        <!-- Horizontal crossbar -->
+        <visual name="H_cross">
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.3 0.08 0.005</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ================================================================= -->
+    <!--  Gate lines — white stripes across the track                      -->
+    <!--  Line 1: y = 32  (±0.2 → 31.8 .. 32.2)                            -->
+    <!--  Line 2: y = 37  (±0.2 → 36.8 .. 37.2)                            -->
+    <!--  Line 3: y = 57  (±0.2 → 56.8 .. 57.2)                            -->
+    <!-- ================================================================= -->
+
+    <model name="gate_line_1">
+      <static>true</static>
+      <pose>0 32 0.014 0 0 0</pose>
+      <link name="line1_link">
+        <visual name="line1_visual">
+          <geometry>
+            <box>
+              <size>8 0.4 0.005</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="gate_line_2">
+      <static>true</static>
+      <pose>0 37 0.014 0 0 0</pose>
+      <link name="line2_link">
+        <visual name="line2_visual">
+          <geometry>
+            <box>
+              <size>8 0.4 0.005</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="gate_line_3">
+      <static>true</static>
+      <pose>0 57 0.014 0 0 0</pose>
+      <link name="line3_link">
+        <visual name="line3_visual">
+          <geometry>
+            <box>
+              <size>8 0.4 0.005</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ================================================================= -->
+    <!--  Region 1 — Cylinders (y:32..37), H=30cm, white hollow tubes       -->
+    <!--  C1: D=15cm   C2: D=20cm   C3: D=25cm                              -->
+    <!-- ================================================================= -->
+
+    <!-- Cylinder 1: D=15cm, H=30cm, wall 0.5cm -->
+    <model name="cylinder_R1_01">
+      <static>true</static>
+      <pose>-1.42 33.87 0.16 0 0 0</pose>
+      <link name="cyl1_link">
+        <collision name="cyl1_collision">
+          <geometry>
+            <cylinder>
+              <length>0.3</length>
+              <radius>0.075</radius>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="cyl1_visual">
+          <geometry>
+            <cylinder>
+              <length>0.3</length>
+              <radius>0.075</radius>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.9 0.9 0.9 1</ambient>
+            <diffuse>0.95 0.95 0.95 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Cylinder 2: D=20cm, H=30cm, wall 0.5cm -->
+    <model name="cylinder_R1_02">
+      <static>true</static>
+      <pose>-2.73 33.33 0.16 0 0 0</pose>
+      <link name="cyl2_link">
+        <collision name="cyl2_collision">
+          <geometry>
+            <cylinder>
+              <length>0.3</length>
+              <radius>0.1</radius>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="cyl2_visual">
+          <geometry>
+            <cylinder>
+              <length>0.3</length>
+              <radius>0.1</radius>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.9 0.9 0.9 1</ambient>
+            <diffuse>0.95 0.95 0.95 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Cylinder 3: D=25cm, H=30cm, wall 0.5cm -->
+    <model name="cylinder_R1_03">
+      <static>true</static>
+      <pose>2.06 35.60 0.16 0 0 0</pose>
+      <link name="cyl3_link">
+        <collision name="cyl3_collision">
+          <geometry>
+            <cylinder>
+              <length>0.3</length>
+              <radius>0.125</radius>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="cyl3_visual">
+          <geometry>
+            <cylinder>
+              <length>0.3</length>
+              <radius>0.125</radius>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.9 0.9 0.9 1</ambient>
+            <diffuse>0.95 0.95 0.95 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ================================================================= -->
+    <!--  Region 2 — Cylinders (y:57..62), H=15cm, D=20cm, white tubes     -->
+    <!--  3 of 5 contain 12×12cm hazard chemical signs                      -->
+    <!-- ================================================================= -->
+
+    <!-- Cylinder 4: D=20cm, H=15cm + hazard sign -->
+    <model name="cylinder_R2_04">
+      <static>true</static>
+      <pose>3.20 61.01 0.085 0 0 0</pose>
+      <link name="cyl4_link">
+        <collision name="cyl4_collision">
+          <geometry>
+            <cylinder>
+              <length>0.15</length>
+              <radius>0.1</radius>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="cyl4_visual">
+          <geometry>
+            <cylinder>
+              <length>0.15</length>
+              <radius>0.1</radius>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.9 0.9 0.9 1</ambient>
+            <diffuse>0.95 0.95 0.95 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Hazard sign inside cylinder 4 -->
+    <model name="hazard_C4">
+      <static>true</static>
+      <pose>3.20 61.01 0.013 -1.5708 0 0</pose>
+      <link name="haz4_link">
+        <visual name="haz4_visual">
+          <geometry>
+            <box>
+              <size>0.12 0.12 0.003</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1.0 0.2 0.0 1</ambient>
+            <diffuse>1.0 0.3 0.0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Cylinder 5: D=20cm, H=15cm + hazard sign -->
+    <model name="cylinder_R2_05">
+      <static>true</static>
+      <pose>1.22 58.49 0.085 0 0 0</pose>
+      <link name="cyl5_link">
+        <collision name="cyl5_collision">
+          <geometry>
+            <cylinder>
+              <length>0.15</length>
+              <radius>0.1</radius>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="cyl5_visual">
+          <geometry>
+            <cylinder>
+              <length>0.15</length>
+              <radius>0.1</radius>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.9 0.9 0.9 1</ambient>
+            <diffuse>0.95 0.95 0.95 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Hazard sign inside cylinder 5 -->
+    <model name="hazard_C5">
+      <static>true</static>
+      <pose>1.22 58.49 0.013 -1.5708 0 0</pose>
+      <link name="haz5_link">
+        <visual name="haz5_visual">
+          <geometry>
+            <box>
+              <size>0.12 0.12 0.003</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1.0 0.2 0.0 1</ambient>
+            <diffuse>1.0 0.3 0.0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Cylinder 6: D=20cm, H=15cm + hazard sign -->
+    <model name="cylinder_R2_06">
+      <static>true</static>
+      <pose>-3.35 60.09 0.085 0 0 0</pose>
+      <link name="cyl6_link">
+        <collision name="cyl6_collision">
+          <geometry>
+            <cylinder>
+              <length>0.15</length>
+              <radius>0.1</radius>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="cyl6_visual">
+          <geometry>
+            <cylinder>
+              <length>0.15</length>
+              <radius>0.1</radius>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.9 0.9 0.9 1</ambient>
+            <diffuse>0.95 0.95 0.95 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Hazard sign inside cylinder 6 -->
+    <model name="hazard_C6">
+      <static>true</static>
+      <pose>-3.35 60.09 0.013 -1.5708 0 0</pose>
+      <link name="haz6_link">
+        <visual name="haz6_visual">
+          <geometry>
+            <box>
+              <size>0.12 0.12 0.003</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1.0 0.2 0.0 1</ambient>
+            <diffuse>1.0 0.3 0.0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Cylinder 7: D=20cm, H=15cm (no hazard sign) -->
+    <model name="cylinder_R2_07">
+      <static>true</static>
+      <pose>-0.22 59.25 0.085 0 0 0</pose>
+      <link name="cyl7_link">
+        <collision name="cyl7_collision">
+          <geometry>
+            <cylinder>
+              <length>0.15</length>
+              <radius>0.1</radius>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="cyl7_visual">
+          <geometry>
+            <cylinder>
+              <length>0.15</length>
+              <radius>0.1</radius>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.9 0.9 0.9 1</ambient>
+            <diffuse>0.95 0.95 0.95 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Cylinder 8: D=20cm, H=15cm (no hazard sign) -->
+    <model name="cylinder_R2_08">
+      <static>true</static>
+      <pose>-3.46 60.61 0.085 0 0 0</pose>
+      <link name="cyl8_link">
+        <collision name="cyl8_collision">
+          <geometry>
+            <cylinder>
+              <length>0.15</length>
+              <radius>0.1</radius>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="cyl8_visual">
+          <geometry>
+            <cylinder>
+              <length>0.15</length>
+              <radius>0.1</radius>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.9 0.9 0.9 1</ambient>
+            <diffuse>0.95 0.95 0.95 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ================================================================= -->
+    <!--  Drone spawn marker — green dot at origin                          -->
+    <!-- ================================================================= -->
+    <model name="drone_spawn">
+      <static>true</static>
+      <pose>0 0 0.02 0 0 0</pose>
+      <link name="spawn_link">
+        <visual name="spawn_visual">
+          <geometry>
+            <cylinder>
+              <length>0.005</length>
+              <radius>0.15</radius>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0 1 0 0.6</ambient>
+            <diffuse>0 1 0 0.6</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>
