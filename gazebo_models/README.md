@@ -46,9 +46,9 @@ bash ../launch/launch_cuadc.sh
 ### CUADC_UAV02 — Race track with cylinder obstacles
 
 Same as CUADC_UAV01 plus:
-- **Region 1** (y:32~37): 3 white hollow cylinders, H=30cm
+- **Region 1** (y:32~37): 3 white bucket-shaped tubes (sealed bottom, open top), H=30cm
   - D=15cm, D=20cm, D=25cm (wall 0.5cm)
-- **Region 2** (y:57~62): 5 white hollow cylinders, H=15cm, D=20cm
+- **Region 2** (y:57~62): 5 white bucket-shaped tubes (sealed bottom, open top), H=15cm, D=20cm
   - 3 cylinders contain 12×12cm hazard chemical signs (red plate)
 
 **Run with PX4 (X500 drone):**

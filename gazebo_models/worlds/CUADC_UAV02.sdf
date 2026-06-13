@@ -419,6 +419,21 @@
             <specular>0.1 0.1 0.1 1</specular>
           </material>
         </visual>
+        <!-- Bottom plate (sealed base, bucket-like) -->
+        <visual name="cyl1_base">
+          <pose>0 0 -0.1475 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.005</length>
+              <radius>0.075</radius>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.88 0.88 0.88 1</diffuse>
+            <specular>0.05 0.05 0.05 1</specular>
+          </material>
+        </visual>
       </link>
     </model>
 
@@ -448,6 +463,20 @@
             <specular>0.1 0.1 0.1 1</specular>
           </material>
         </visual>
+        <visual name="cyl2_base">
+          <pose>0 0 -0.1475 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.005</length>
+              <radius>0.1</radius>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.88 0.88 0.88 1</diffuse>
+            <specular>0.05 0.05 0.05 1</specular>
+          </material>
+        </visual>
       </link>
     </model>
 
@@ -475,6 +504,20 @@
             <ambient>0.9 0.9 0.9 1</ambient>
             <diffuse>0.95 0.95 0.95 1</diffuse>
             <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cyl3_base">
+          <pose>0 0 -0.1475 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.005</length>
+              <radius>0.125</radius>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.88 0.88 0.88 1</diffuse>
+            <specular>0.05 0.05 0.05 1</specular>
           </material>
         </visual>
       </link>
@@ -509,6 +552,20 @@
             <ambient>0.9 0.9 0.9 1</ambient>
             <diffuse>0.95 0.95 0.95 1</diffuse>
             <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cyl4_base">
+          <pose>0 0 -0.0725 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.005</length>
+              <radius>0.1</radius>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.88 0.88 0.88 1</diffuse>
+            <specular>0.05 0.05 0.05 1</specular>
           </material>
         </visual>
       </link>
@@ -559,6 +616,20 @@
             <specular>0.1 0.1 0.1 1</specular>
           </material>
         </visual>
+        <visual name="cyl5_base">
+          <pose>0 0 -0.0725 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.005</length>
+              <radius>0.1</radius>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.88 0.88 0.88 1</diffuse>
+            <specular>0.05 0.05 0.05 1</specular>
+          </material>
+        </visual>
       </link>
     </model>
 
@@ -605,6 +676,20 @@
             <ambient>0.9 0.9 0.9 1</ambient>
             <diffuse>0.95 0.95 0.95 1</diffuse>
             <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cyl6_base">
+          <pose>0 0 -0.0725 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.005</length>
+              <radius>0.1</radius>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.88 0.88 0.88 1</diffuse>
+            <specular>0.05 0.05 0.05 1</specular>
           </material>
         </visual>
       </link>
@@ -655,6 +740,20 @@
             <specular>0.1 0.1 0.1 1</specular>
           </material>
         </visual>
+        <visual name="cyl7_base">
+          <pose>0 0 -0.0725 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.005</length>
+              <radius>0.1</radius>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.88 0.88 0.88 1</diffuse>
+            <specular>0.05 0.05 0.05 1</specular>
+          </material>
+        </visual>
       </link>
     </model>
 
@@ -682,6 +781,20 @@
             <ambient>0.9 0.9 0.9 1</ambient>
             <diffuse>0.95 0.95 0.95 1</diffuse>
             <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cyl8_base">
+          <pose>0 0 -0.0725 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.005</length>
+              <radius>0.1</radius>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.88 0.88 0.88 1</diffuse>
+            <specular>0.05 0.05 0.05 1</specular>
           </material>
         </visual>
       </link>
