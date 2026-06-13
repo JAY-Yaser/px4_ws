@@ -2,7 +2,7 @@ import time
 from pymavlink import mavutil
 
 # 1. 建立连接 (SITL 默认地址，实机请修改为串口如 '/dev/ttyUSB0')
-connection = mavutil.mavlink_connection('udp:127.0.0.1:14550')
+connection = mavutil.mavlink_connection('udp:127.0.0.1:14540')
 
 print("等待心跳...")
 connection.wait_heartbeat()
