@@ -27,8 +27,20 @@ gz sim worlds/indoor_20x20.sdf
 
 **Run with PX4 (X500 drone):**
 ```bash
-export PX4_GZ_WORLD=$(pwd)/worlds/indoor_20x20.sdf
-make px4_sitl gz_x500
+bash ../launch_indoor.sh
+```
+
+### CUADC_UAV01 — 300m×300m outdoor race track
+
+- **Ground**: 300m × 300m flat green plane
+- **Track**: 8m × 65m dark gray runway, y: -3 to 62
+- **Takeoff pad**: orange circle Ø1m at origin, white "H" marker
+- **Gate lines**: white stripes at y=32, y=37, y=57
+- **Gazebo Harmonic 8.x** compatible (SDF 1.11)
+
+**Run with PX4 (X500 drone):**
+```bash
+bash ../launch_cuadc.sh
 ```
 
 ## Usage
