@@ -393,7 +393,7 @@
     <!--  C1: D=15cm   C2: D=20cm   C3: D=25cm                              -->
     <!-- ================================================================= -->
 
-    <!-- Cylinder 1: D=15cm, H=30cm, wall 0.5cm -->
+    <!-- Cylinder 1: D=15cm, H=30cm, wall 3mm -->
     <model name="cylinder_R1_01">
       <static>true</static>
       <pose>-1.42 33.87 0.16 0 0 0</pose>
@@ -408,10 +408,7 @@
         </collision>
         <visual name="cyl1_visual">
           <geometry>
-            <cylinder>
-              <length>0.3</length>
-              <radius>0.075</radius>
-            </cylinder>
+            <mesh><uri>file:///home/jay/px4 _ws/gazebo_models/models/tube_D15_H30.obj</uri></mesh>
           </geometry>
           <material>
             <ambient>0.9 0.9 0.9 1</ambient>
@@ -419,25 +416,10 @@
             <specular>0.1 0.1 0.1 1</specular>
           </material>
         </visual>
-        <!-- Bottom plate (sealed base, bucket-like) -->
-        <visual name="cyl1_base">
-          <pose>0 0 -0.1475 0 0 0</pose>
-          <geometry>
-            <cylinder>
-              <length>0.005</length>
-              <radius>0.075</radius>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.8 0.8 0.8 1</ambient>
-            <diffuse>0.88 0.88 0.88 1</diffuse>
-            <specular>0.05 0.05 0.05 1</specular>
-          </material>
-        </visual>
       </link>
     </model>
 
-    <!-- Cylinder 2: D=20cm, H=30cm, wall 0.5cm -->
+    <!-- Cylinder 2: D=20cm, H=30cm, wall 3mm -->
     <model name="cylinder_R1_02">
       <static>true</static>
       <pose>-2.73 33.33 0.16 0 0 0</pose>
@@ -452,10 +434,7 @@
         </collision>
         <visual name="cyl2_visual">
           <geometry>
-            <cylinder>
-              <length>0.3</length>
-              <radius>0.1</radius>
-            </cylinder>
+            <mesh><uri>file:///home/jay/px4 _ws/gazebo_models/models/tube_D20_H30.obj</uri></mesh>
           </geometry>
           <material>
             <ambient>0.9 0.9 0.9 1</ambient>
@@ -480,7 +459,7 @@
       </link>
     </model>
 
-    <!-- Cylinder 3: D=25cm, H=30cm, wall 0.5cm -->
+    <!-- Cylinder 3: D=25cm, H=30cm, wall 3mm -->
     <model name="cylinder_R1_03">
       <static>true</static>
       <pose>2.06 35.60 0.16 0 0 0</pose>
@@ -495,10 +474,7 @@
         </collision>
         <visual name="cyl3_visual">
           <geometry>
-            <cylinder>
-              <length>0.3</length>
-              <radius>0.125</radius>
-            </cylinder>
+            <mesh><uri>file:///home/jay/px4 _ws/gazebo_models/models/tube_D25_H30.obj</uri></mesh>
           </geometry>
           <material>
             <ambient>0.9 0.9 0.9 1</ambient>
@@ -543,10 +519,7 @@
         </collision>
         <visual name="cyl4_visual">
           <geometry>
-            <cylinder>
-              <length>0.15</length>
-              <radius>0.1</radius>
-            </cylinder>
+            <mesh><uri>file:///home/jay/px4 _ws/gazebo_models/models/tube_D20_H15.obj</uri></mesh>
           </geometry>
           <material>
             <ambient>0.9 0.9 0.9 1</ambient>
@@ -605,10 +578,7 @@
         </collision>
         <visual name="cyl5_visual">
           <geometry>
-            <cylinder>
-              <length>0.15</length>
-              <radius>0.1</radius>
-            </cylinder>
+            <mesh><uri>file:///home/jay/px4 _ws/gazebo_models/models/tube_D20_H15.obj</uri></mesh>
           </geometry>
           <material>
             <ambient>0.9 0.9 0.9 1</ambient>
@@ -667,10 +637,7 @@
         </collision>
         <visual name="cyl6_visual">
           <geometry>
-            <cylinder>
-              <length>0.15</length>
-              <radius>0.1</radius>
-            </cylinder>
+            <mesh><uri>file:///home/jay/px4 _ws/gazebo_models/models/tube_D20_H15.obj</uri></mesh>
           </geometry>
           <material>
             <ambient>0.9 0.9 0.9 1</ambient>
@@ -729,10 +696,7 @@
         </collision>
         <visual name="cyl7_visual">
           <geometry>
-            <cylinder>
-              <length>0.15</length>
-              <radius>0.1</radius>
-            </cylinder>
+            <mesh><uri>file:///home/jay/px4 _ws/gazebo_models/models/tube_D20_H15.obj</uri></mesh>
           </geometry>
           <material>
             <ambient>0.9 0.9 0.9 1</ambient>
@@ -772,10 +736,7 @@
         </collision>
         <visual name="cyl8_visual">
           <geometry>
-            <cylinder>
-              <length>0.15</length>
-              <radius>0.1</radius>
-            </cylinder>
+            <mesh><uri>file:///home/jay/px4 _ws/gazebo_models/models/tube_D20_H15.obj</uri></mesh>
           </geometry>
           <material>
             <ambient>0.9 0.9 0.9 1</ambient>

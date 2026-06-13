@@ -21,7 +21,7 @@ export PX4_GZ_MODELS="$PX4_DIR/Tools/simulation/gz/models"
 export PX4_GZ_PLUGINS="$PX4_BUILD_DIR/src/modules/simulation/gz_plugins"
 export PX4_GZ_SERVER_CONFIG="$PX4_DIR/src/modules/simulation/gz_bridge/server.config"
 
-export GZ_SIM_RESOURCE_PATH="${GZ_SIM_RESOURCE_PATH:-}:$PX4_GZ_MODELS"
+export GZ_SIM_RESOURCE_PATH="${GZ_SIM_RESOURCE_PATH:-}:$PX4_GZ_MODELS:/home/jay/px4 _ws/gazebo_models/models"
 export GZ_SIM_SYSTEM_PLUGIN_PATH="${GZ_SIM_SYSTEM_PLUGIN_PATH:-}:$PX4_GZ_PLUGINS"
 export GZ_SIM_SERVER_CONFIG_PATH="$PX4_GZ_SERVER_CONFIG"
 
