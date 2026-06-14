@@ -16,9 +16,14 @@ set -e
 # ---- Paths ----------------------------------------------------------------
 PX4_DIR="/home/jay/PX4-Autopilot"
 PX4_BUILD_DIR="$PX4_DIR/build/px4_sitl_default"
-WORLD_FILE="/home/jay/px4 _ws/gazebo_models/worlds/CUADC_UAV02.sdf"
+
+# Use symlink path WITHOUT space (px4_ws) for file:// URI safety
+WS="/home/jay/px4_ws"
+[ -L "$WS" ] || ln -sf "/home/jay/px4 _ws" "$WS"
+
+WORLD_FILE="$WS/gazebo_models/worlds/CUADC_UAV02.sdf"
 WNAME="CUADC_UAV02"
-LOCAL_MODELS="/home/jay/px4 _ws/gazebo_models/models"
+LOCAL_MODELS="$WS/gazebo_models/models"
 
 # ---- PX4 Gazebo resource paths --------------------------------------------
 # Override PX4_GZ_MODELS to use our local model (x500_cam with downward camera)

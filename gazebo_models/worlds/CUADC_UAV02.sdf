@@ -408,7 +408,7 @@
         </collision>
         <visual name="cyl1_visual">
           <geometry>
-            <mesh><uri>file:///home/jay/px4 _ws/gazebo_models/models/tube_D15_H30.obj</uri></mesh>
+            <mesh><uri>file:///home/jay/px4_ws/gazebo_models/models/tube_D15_H30.obj</uri></mesh>
           </geometry>
           <material>
             <ambient>0.9 0.9 0.9 1</ambient>
@@ -434,7 +434,7 @@
         </collision>
         <visual name="cyl2_visual">
           <geometry>
-            <mesh><uri>file:///home/jay/px4 _ws/gazebo_models/models/tube_D20_H30.obj</uri></mesh>
+            <mesh><uri>file:///home/jay/px4_ws/gazebo_models/models/tube_D20_H30.obj</uri></mesh>
           </geometry>
           <material>
             <ambient>0.9 0.9 0.9 1</ambient>
@@ -474,7 +474,7 @@
         </collision>
         <visual name="cyl3_visual">
           <geometry>
-            <mesh><uri>file:///home/jay/px4 _ws/gazebo_models/models/tube_D25_H30.obj</uri></mesh>
+            <mesh><uri>file:///home/jay/px4_ws/gazebo_models/models/tube_D25_H30.obj</uri></mesh>
           </geometry>
           <material>
             <ambient>0.9 0.9 0.9 1</ambient>
@@ -519,7 +519,7 @@
         </collision>
         <visual name="cyl4_visual">
           <geometry>
-            <mesh><uri>file:///home/jay/px4 _ws/gazebo_models/models/tube_D20_H15.obj</uri></mesh>
+            <mesh><uri>file:///home/jay/px4_ws/gazebo_models/models/tube_D20_H15.obj</uri></mesh>
           </geometry>
           <material>
             <ambient>0.9 0.9 0.9 1</ambient>
@@ -578,7 +578,7 @@
         </collision>
         <visual name="cyl5_visual">
           <geometry>
-            <mesh><uri>file:///home/jay/px4 _ws/gazebo_models/models/tube_D20_H15.obj</uri></mesh>
+            <mesh><uri>file:///home/jay/px4_ws/gazebo_models/models/tube_D20_H15.obj</uri></mesh>
           </geometry>
           <material>
             <ambient>0.9 0.9 0.9 1</ambient>
@@ -637,7 +637,7 @@
         </collision>
         <visual name="cyl6_visual">
           <geometry>
-            <mesh><uri>file:///home/jay/px4 _ws/gazebo_models/models/tube_D20_H15.obj</uri></mesh>
+            <mesh><uri>file:///home/jay/px4_ws/gazebo_models/models/tube_D20_H15.obj</uri></mesh>
           </geometry>
           <material>
             <ambient>0.9 0.9 0.9 1</ambient>
@@ -696,7 +696,7 @@
         </collision>
         <visual name="cyl7_visual">
           <geometry>
-            <mesh><uri>file:///home/jay/px4 _ws/gazebo_models/models/tube_D20_H15.obj</uri></mesh>
+            <mesh><uri>file:///home/jay/px4_ws/gazebo_models/models/tube_D20_H15.obj</uri></mesh>
           </geometry>
           <material>
             <ambient>0.9 0.9 0.9 1</ambient>
@@ -736,7 +736,7 @@
         </collision>
         <visual name="cyl8_visual">
           <geometry>
-            <mesh><uri>file:///home/jay/px4 _ws/gazebo_models/models/tube_D20_H15.obj</uri></mesh>
+            <mesh><uri>file:///home/jay/px4_ws/gazebo_models/models/tube_D20_H15.obj</uri></mesh>
           </geometry>
           <material>
             <ambient>0.9 0.9 0.9 1</ambient>
