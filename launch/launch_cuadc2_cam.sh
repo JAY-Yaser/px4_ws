@@ -74,13 +74,12 @@ cd "$PX4_DIR"
 PX4_GZ_STANDALONE=1 \
 PX4_GZ_WORLD="$WNAME" \
 PX4_GZ_MODEL_POSE="0,0,0,0,0,1.5708" \
-PX4_SIM_MODEL="gz_x500_cam" \
 make px4_sitl gz_x500 &
 PX4_PID=$!
 sleep 5
 
 # ---- ROS2 Camera Bridge ---------------------------------------------------
-CAM_TOPIC="/world/$WNAME/model/x500_cam_0/link/base_link/sensor/downward_camera/image"
+CAM_TOPIC="/world/$WNAME/model/x500_0/link/base_link/sensor/downward_camera/image"
 ROS_TOPIC="/downward_camera"
 
 echo "[$(date '+%H:%M:%S')] Starting ROS2 camera bridge..."
