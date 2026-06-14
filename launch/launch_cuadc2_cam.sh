@@ -36,18 +36,9 @@ export GZ_SIM_RESOURCE_PATH="${GZ_SIM_RESOURCE_PATH:-}:$LOCAL_MODELS:$PX4_DIR/To
 export GZ_SIM_SYSTEM_PLUGIN_PATH="${GZ_SIM_SYSTEM_PLUGIN_PATH:-}:$PX4_GZ_PLUGINS"
 export GZ_SIM_SERVER_CONFIG_PATH="$PX4_GZ_SERVER_CONFIG"
 
-# ---- ROS2 environment -----------------------------------------------------
-if [ -f /opt/ros/humble/setup.bash ]; then
-    source /opt/ros/humble/setup.bash
-    echo "[$(date '+%H:%M:%S')] ROS2 Humble sourced"
-else
-    echo "[$(date '+%H:%M:%S')] WARNING: /opt/ros/humble/setup.bash not found"
-fi
-
 # ---- Clean up previous instances ------------------------------------------
 echo "[$(date '+%H:%M:%S')] Stopping any previous Gazebo instances..."
 pkill -9 -f "gz sim" 2>/dev/null || true
-pkill -9 -f "ros_gz_bridge" 2>/dev/null || true
 sleep 1
 
 # ---- Start Gazebo server --------------------------------------------------
@@ -78,32 +69,18 @@ make px4_sitl gz_x500 &
 PX4_PID=$!
 sleep 5
 
-# ---- ROS2 Camera Bridge ---------------------------------------------------
-CAM_TOPIC="/world/$WNAME/model/x500_0/link/base_link/sensor/downward_camera/image"
-ROS_TOPIC="/downward_camera"
-
-echo "[$(date '+%H:%M:%S')] Starting ROS2 camera bridge..."
-echo "  Gazebo topic: $CAM_TOPIC"
-echo "  ROS2 topic:   $ROS_TOPIC"
-
-if command -v ros2 &> /dev/null; then
-    ros2 run ros_gz_image image_bridge "$CAM_TOPIC" "$ROS_TOPIC" &
-    BRIDGE_PID=$!
-    echo "[$(date '+%H:%M:%S')] Camera bridge running (PID $BRIDGE_PID)"
-    echo ""
-    echo "  View in RViz2 or:"
-    echo "    ros2 run rqt_image_view rqt_image_view /downward_camera"
-    echo ""
-else
-    echo "[$(date '+%H:%M:%S')] WARNING: ros2 not found, camera bridge not started"
-fi
+# ---- Camera info ----------------------------------------------------------
+echo ""
+echo "  === Downward camera is active ==="
+echo "  View in Gazebo GUI: find 'Downward Camera' docked panel"
+echo "  Gazebo topic: /world/$WNAME/model/x500_0/link/base_link/sensor/downward_camera/image"
+echo ""
 
 # ---- Wait for PX4 ---------------------------------------------------------
 wait "$PX4_PID" 2>/dev/null || true
 
 # ---- Cleanup --------------------------------------------------------------
 echo "[$(date '+%H:%M:%S')] PX4 exited, stopping..."
-kill "$BRIDGE_PID" 2>/dev/null || true
 kill "$GZ_SERVER_PID" "$GZ_GUI_PID" 2>/dev/null || true
 wait "$GZ_SERVER_PID" "$GZ_GUI_PID" 2>/dev/null || true
 echo "[$(date '+%H:%M:%S')] Done."
