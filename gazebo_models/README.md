@@ -47,13 +47,36 @@ bash ../launch/launch_cuadc.sh
 
 Same as CUADC_UAV01 plus:
 - **Region 1** (y:32~37): 3 white bucket-shaped tubes (sealed bottom, open top), H=30cm
-  - D=15cm, D=20cm, D=25cm (wall 0.5cm)
+  - D=15cm, D=20cm, D=25cm (wall 3mm)
 - **Region 2** (y:57~62): 5 white bucket-shaped tubes (sealed bottom, open top), H=15cm, D=20cm
   - 3 cylinders contain 12×12cm hazard chemical signs (red plate)
 
 **Run with PX4 (X500 drone):**
 ```bash
 bash ../launch/launch_cuadc2.sh
+```
+
+## Models
+
+### x500_cam — X500 quadrotor with downward RGB camera
+
+Modified X500 with a downward-facing camera mounted under the base_link.
+
+| Parameter | Value |
+|-----------|-------|
+| Resolution | 640 × 480 |
+| Frame rate | 30 Hz |
+| FOV | 60° horizontal |
+| Pose | base_link bottom, facing -Z |
+| Gazebo topic | `/world/.../downward_camera/image` |
+| ROS2 topic | `/downward_camera` (via ros_gz_image bridge) |
+
+Model at `models/x500_cam/` (includes `x500_cam_base/` with meshes).  
+Does NOT modify any files in PX4-Autopilot.
+
+**Run with PX4:**
+```bash
+bash ../launch/launch_cuadc2_cam.sh
 ```
 
 ## Usage

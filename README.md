@@ -16,11 +16,16 @@ px4_ws/
 │   │   ├── indoor_20x20.sdf    # 20m×20m 无屋顶室内
 │   │   ├── CUADC_UAV01.sdf     # 300m 室外赛道（基础）
 │   │   └── CUADC_UAV02.sdf     # 300m 室外赛道（含障碍物）
-│   └── models/             # 自定义模型（扩展用）
+│   └── models/             # 自定义模型
+│       ├── x500_cam/            # X500 + 下视RGB摄像头
+│       ├── x500_cam_base/       # X500 基础模型（含摄像头）
+│       ├── tube_D*_H*.obj       # 空心圆筒网格
+│       └── ...
 ├── launch/                  # 一键启动脚本
 │   ├── launch_indoor.sh         # 启动: indoor_20x20
 │   ├── launch_cuadc.sh          # 启动: CUADC_UAV01
-│   └── launch_cuadc2.sh         # 启动: CUADC_UAV02
+│   ├── launch_cuadc2.sh         # 启动: CUADC_UAV02
+│   └── launch_cuadc2_cam.sh     # 启动: CUADC_UAV02 + 下视摄像头
 ├── base/                   # PX4 基础控制脚本
 ├── fly_mod/                # 飞行模式示例
 ├── plane/                  # 固定翼
@@ -83,6 +88,28 @@ bash launch/launch_cuadc2.sh
 
 ```bash
 gz sim gazebo_models/worlds/CUADC_UAV02.sdf
+```
+
+### X500 下视摄像头 (x500_cam)
+
+基于 X500 四旋翼，base_link 底部加装下视 RGB 摄像头：
+
+| 参数 | 值 |
+|------|-----|
+| 分辨率 | 640 × 480 |
+| 帧率 | 30 Hz |
+| FOV | 60° (horizontal) |
+| 安装位置 | base_link 底部，朝下 |
+| Gazebo 话题 | `/world/CUADC_UAV02/model/x500_cam_0/link/base_link/sensor/downward_camera/image` |
+| ROS2 话题 | `/downward_camera` |
+
+模型位于 `gazebo_models/models/x500_cam/`，不修改 PX4-Autopilot 内任何文件。
+
+```bash
+bash launch/launch_cuadc2_cam.sh
+
+# 在另一个终端查看摄像头画面
+ros2 run rqt_image_view rqt_image_view /downward_camera
 ```
 
 ## 场景布局图
