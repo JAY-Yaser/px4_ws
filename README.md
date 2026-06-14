@@ -2,11 +2,11 @@
 
 基于 [PX4-Autopilot](https://github.com/PX4/PX4-Autopilot) + Gazebo Harmonic 的无人机仿真项目。
 
-针对CUADC，中国大学生飞行器设计创新大赛，多旋翼无人机侦察与救援项目设计
+针对 **CUADC**，中国大学生飞行器设计创新大赛，多旋翼无人机侦察与救援项目设计。
 
-根据2025年比赛规则复刻标准比赛场地，供仿真使用
+根据2025年比赛规则复刻标准比赛场地，供仿真使用。
 
-提供基础飞行脚本，包括解锁，起飞，绝对位置飞行例程脚本，相对位置飞行例程脚本，供使用者快速了解无人机offboard自主飞行控制与实机部署
+同时提供基础飞行脚本，包括解锁，起飞，绝对位置飞行例程脚本，相对位置飞行例程脚本，供使用者快速了解无人机offboard自主飞行控制与实机部署。
 
 - **飞控**: PX4 v1.17+ (SITL)
 - **仿真器**: Gazebo Harmonic 8.11 (gz-sim8)
@@ -143,6 +143,8 @@ ros2 run rqt_image_view rqt_image_view /downward_camera
 ```
 
 <img width="864" height="879" alt="eab391e255bbcaff08f84d45166e6952" src="https://github.com/user-attachments/assets/c1b1ddfc-202c-4a65-928f-298b88720977" />
+
+实际比赛时为平行双场地，两组同时进行，注意信号干扰。
 
 ## 环境依赖
 
