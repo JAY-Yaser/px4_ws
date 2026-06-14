@@ -7,6 +7,8 @@
 - **平台**: Ubuntu 22.04
 - **机型**: X500 四旋翼
 
+<img width="2256" height="1503" alt="26d2f2792d44289153ecfe62fc4a3438" src="https://github.com/user-attachments/assets/d5e861ee-4c72-416d-9190-6d835ec9e62f" />
+
 ## 目录结构
 
 ```
@@ -83,6 +85,8 @@ bash launch/launch_cuadc.sh
 ```bash
 bash launch/launch_cuadc2.sh
 ```
+
+<img width="2256" height="1503" alt="d2d4e2c5a80fc4c644f5269ea6d8d378" src="https://github.com/user-attachments/assets/dd93814d-2687-49fe-a08f-939d905cb1da" />
 
 ### 单独预览场景（无无人机）
 
