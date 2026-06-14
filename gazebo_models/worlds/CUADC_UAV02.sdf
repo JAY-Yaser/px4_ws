@@ -172,14 +172,13 @@
           <property type="string" key="state">docked_collapsed</property>
         </gz-gui>
       </plugin>
-      <!-- Downward camera display -->
+      <!-- Downward camera display (select topic after drone spawns) -->
       <plugin filename="ImageDisplay" name="Downward Camera">
         <gz-gui>
           <title>Downward Camera</title>
           <property type="string" key="state">docked</property>
         </gz-gui>
-        <topic>/world/CUADC_UAV02/model/x500_0/link/base_link/sensor/downward_camera/image</topic>
-        <topic_picker>false</topic_picker>
+        <topic_picker>true</topic_picker>
       </plugin>
       <plugin filename="KeyPublisher" name="Key publisher">
         <gz-gui>
