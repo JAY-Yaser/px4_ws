@@ -1,6 +1,9 @@
 # PX4 无人机仿真工作空间
 
 基于 [PX4-Autopilot](https://github.com/PX4/PX4-Autopilot) + Gazebo Harmonic 的无人机仿真项目。
+针对CUADC，中国大学生飞行器设计创新大赛，多旋翼无人机侦察与救援项目设计
+根据2025年比赛规则复刻标准比赛场地，供仿真使用
+提供基础飞行脚本，包括解锁，起飞，绝对位置飞行例程脚本，相对位置飞行例程脚本，供使用者快速了解无人机offboard自主飞行控制与实机部署
 
 - **飞控**: PX4 v1.17+ (SITL)
 - **仿真器**: Gazebo Harmonic 8.11 (gz-sim8)
@@ -67,7 +70,7 @@ bash launch/launch_indoor.sh
 bash launch/launch_cuadc.sh
 ```
 
-### CUADC_UAV02 — 室外赛道（含障碍物）
+### CUADC_UAV02 — 室外赛道（含目标圆筒）
 
 在 CUADC_UAV01 基础上增加：
 
@@ -80,7 +83,7 @@ bash launch/launch_cuadc.sh
 | C3 | 25cm | 3mm |
 
 **区域 2** (y: 57 ~ 62)：5 个白色水筒（下封上开，壁厚 3mm），高 15cm，直径 20cm
-- 其中 3 个筒内放置 12×12cm 红色危险化学品标识
+- 比赛时其中 3 个筒内放置 12×12cm 红色危险化学品标识
 
 ```bash
 bash launch/launch_cuadc2.sh
@@ -124,11 +127,11 @@ ros2 run rqt_image_view rqt_image_view /downward_camera
     ┌──────────────────────────┐
     │   ○ ○ ○  (5× 白色圆筒)    │  Region 2
     │   ○   ○  H=15cm D=20cm   │  y:57~62
-    │  ██████████████████████   │  y=57
+    │  ██████████████████████  │  y=57
     │                          │
     │      ○ ○ ○               │  Region 1
     │      H=30cm              │  y:32~37
-    │  ██████████████████████   │  y=32
+    │  ██████████████████████  │  y=32
     │                          │
     │         🟠H              │  y=0 起降
     └──────────────────────────┘
