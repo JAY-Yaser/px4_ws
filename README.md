@@ -132,6 +132,8 @@ ros2 run rqt_image_view rqt_image_view /downward_camera
     无人机朝 +Y ↑
 ```
 
+<img width="864" height="879" alt="eab391e255bbcaff08f84d45166e6952" src="https://github.com/user-attachments/assets/c1b1ddfc-202c-4a65-928f-298b88720977" />
+
 ## 环境依赖
 
 ```bash
