@@ -105,9 +105,16 @@ if command -v ros2 &> /dev/null; then
     ros2 run ros_gz_image image_bridge "$GZ_TOPIC" "$ROS_TOPIC" &
     BRIDGE_PID=$!
     echo "  Bridge PID: $BRIDGE_PID"
+
+    # Start UDP RTP stream for QGC (port 5600)
+    sleep 3
+    python3 "$WS/tools/camera_rtsp.py" --mode udp --port 5600 &
+    QGC_VIDEO_PID=$!
     echo ""
-    echo "  YOLO / Python:"
-    echo "    cv2.VideoCapture('/downward_camera')  # via ROS2 + cv_bridge"
+    echo "  === QGC Video Stream ==="
+    echo "  UDP RTP on port 5600"
+    echo "  QGC: Application Settings > Video > Source: UDP, Port: 5600"
+    echo "  YOLO / Python: subscribe to ROS2 $ROS_TOPIC"
     echo ""
 else
     echo "  WARNING: ros2 not found, bridge skipped"
@@ -118,6 +125,7 @@ wait "$PX4_PID" 2>/dev/null || true
 
 # ---- Cleanup --------------------------------------------------------------
 echo "[$(date '+%H:%M:%S')] Shutting down..."
+[ -n "$QGC_VIDEO_PID" ] && kill "$QGC_VIDEO_PID" 2>/dev/null || true
 [ -n "$BRIDGE_PID" ] && kill "$BRIDGE_PID" 2>/dev/null || true
 [ -n "$GZ_GUI_PID" ] && kill "$GZ_GUI_PID" 2>/dev/null || true
 kill "$GZ_SERVER_PID" 2>/dev/null || true

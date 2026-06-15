@@ -129,7 +129,17 @@ bash launch/launch_cuadc2_cam_fast.sh           # 正常 GUI
 bash launch/launch_cuadc2_cam_fast.sh --headless # 无 GUI，最快
 ```
 
-摄像头画面通过 ROS2 `/downward_camera` 话题获取，可直接接入 YOLO。```
+摄像头画面通过 ROS2 `/downward_camera` 话题获取，可直接接入 YOLO。
+
+同时自动启动 UDP RTP 视频推流 (端口 5600)，QGC 可直接显示：
+- QGC → Application Settings → General → Video
+- Source: UDP, Port: 5600
+
+也可单独运行视频推流：
+```bash
+python3 tools/camera_rtsp.py --mode udp --port 5600   # UDP (QGC)
+python3 tools/camera_rtsp.py --mode tcp --port 5700   # TCP MJPEG (浏览器访问 http://127.0.0.1:5700)
+```
 
 ## 场景布局图
 
