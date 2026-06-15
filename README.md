@@ -122,6 +122,17 @@ bash launch/launch_cuadc2_cam.sh
 ros2 run rqt_image_view rqt_image_view /downward_camera
 ```
 
+**快速模式**（Gazebo 不嵌摄像头面板，ROS2 桥接，适合 YOLO 调用）：
+
+```bash
+bash launch/launch_cuadc2_cam_fast.sh           # 正常 GUI
+bash launch/launch_cuadc2_cam_fast.sh --headless # 无 GUI，最快
+bash launch/launch_cuadc2_cam_fast.sh --cam      # 自动弹出 rqt 查看器
+bash launch/launch_cuadc2_cam_fast.sh --headless --cam  # 无 GUI + rqt
+```
+
+摄像头画面通过 ROS2 `/downward_camera` 话题获取，可直接接入 YOLO。```
+
 ## 场景布局图
 
 ```
