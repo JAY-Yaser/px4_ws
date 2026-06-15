@@ -45,7 +45,14 @@ export GZ_SIM_RESOURCE_PATH="${GZ_SIM_RESOURCE_PATH:-}:$LOCAL_MODELS:$PX4_DIR/To
 export GZ_SIM_SYSTEM_PLUGIN_PATH="${GZ_SIM_SYSTEM_PLUGIN_PATH:-}:$PX4_GZ_PLUGINS"
 export GZ_SIM_SERVER_CONFIG_PATH="$PX4_GZ_SERVER_CONFIG"
 
-# ---- ROS2 environment -----------------------------------------------------
+# ---- ROS2 environment (isolate from conda Python) -------------------------
+# ROS2 Humble needs system Python 3.10; conda Python breaks imports.
+# Temporarily remove conda from PATH for ROS2 commands.
+for p in /opt/ros/humble/bin /usr/bin; do
+    case ":$PATH:" in *":$p:"*) ;; *) export PATH="$p:$PATH" ;; esac
+done
+unset PYTHONPATH CONDA_PREFIX CONDA_DEFAULT_ENV 2>/dev/null || true
+
 if [ -f /opt/ros/humble/setup.bash ]; then
     source /opt/ros/humble/setup.bash
 fi
