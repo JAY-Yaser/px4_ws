@@ -8,20 +8,17 @@
 #   - rqt_image_view can be launched separately with --cam flag
 #
 # Usage:
-#   bash launch/launch_cuadc2_cam_fast.sh              # normal (GUI, no camera panel)
+#   bash launch/launch_cuadc2_cam_fast.sh              # normal (GUI + ROS2 camera)
 #   bash launch/launch_cuadc2_cam_fast.sh --headless   # no Gazebo GUI at all
-#   bash launch/launch_cuadc2_cam_fast.sh --cam        # auto-launch rqt viewer
 #
-# After launch, YOLO can read:  /downward_camera
+# After launch, YOLO can read:  /downward_camera (ROS2 topic)
 # ============================================================================
 set -e
 
 HEADLESS=false
-AUTO_CAM=false
 for arg in "$@"; do
     case $arg in
         --headless) HEADLESS=true ;;
-        --cam)      AUTO_CAM=true ;;
     esac
 done
 
@@ -116,19 +113,11 @@ else
     echo "  WARNING: ros2 not found, bridge skipped"
 fi
 
-# ---- Optional rqt viewer --------------------------------------------------
-if $AUTO_CAM && command -v ros2 &> /dev/null; then
-    sleep 2
-    ros2 run rqt_image_view rqt_image_view "$ROS_TOPIC" &
-    CAM_VIEWER_PID=$!
-fi
-
 # ---- Wait for PX4 ---------------------------------------------------------
 wait "$PX4_PID" 2>/dev/null || true
 
 # ---- Cleanup --------------------------------------------------------------
 echo "[$(date '+%H:%M:%S')] Shutting down..."
-[ -n "$CAM_VIEWER_PID" ] && kill "$CAM_VIEWER_PID" 2>/dev/null || true
 [ -n "$BRIDGE_PID" ] && kill "$BRIDGE_PID" 2>/dev/null || true
 [ -n "$GZ_GUI_PID" ] && kill "$GZ_GUI_PID" 2>/dev/null || true
 kill "$GZ_SERVER_PID" 2>/dev/null || true
