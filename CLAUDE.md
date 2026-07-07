@@ -98,3 +98,20 @@ python3 tools/camera_rtsp.py --mode tcp --port 5700   # MJPEG for browser
 1. **Gazebo GUI**: After drone spawns, "Downward Camera" panel → topic picker → select camera.
 2. **QGC**: UDP port 5600 (auto-started by fast launch script).
 3. **ROS2**: `ros2 run ros_gz_image image_bridge <gz_topic> /downward_camera` (then use with YOLO / cv_bridge).
+
+## YOLOv8 (`cv/`)
+
+YOLOv8 (ultralytics) is installed in the `px4` conda environment.
+
+```
+cv/
+├── tests/yolo_test.py    # basic inference test
+├── models/               # .pt weight files (allowed in git)
+└── debug.py
+```
+
+```bash
+conda activate px4
+python3 cv/tests/yolo_test.py                          # test on sample image
+python3 cv/tests/yolo_test.py --source your_image.jpg  # custom image
+```
