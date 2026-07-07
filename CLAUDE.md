@@ -10,6 +10,7 @@ PX4 SITL + Gazebo Harmonic drone simulation workspace. Contains custom Gazebo wo
 - **Sim**: Gazebo Harmonic 8.11 (`gz-sim8`) on Ubuntu 22.04
 - **Airframe**: X500 quadrotor (`make px4_sitl gz_x500`)
 - **ROS2**: Humble, `/opt/ros/humble` (Python 3.10; conda `px4` env is compatible)
+- **Purpose**: CUADC (中国大学生飞行器设计创新大赛) 多旋翼无人机侦察与救援项目仿真
 
 ## Critical path constraint
 
@@ -25,6 +26,7 @@ All scripts use **standalone mode** (`PX4_GZ_STANDALONE=1`): they start Gazebo s
 | `launch_cuadc.sh` | CUADC_UAV01 | x500 |
 | `launch_cuadc2.sh` | CUADC_UAV02 | x500 |
 | `launch_cuadc2_cam.sh` | CUADC_UAV02 | x500 (local copy with downward camera) |
+| `launch_cuadc2_cam_fast.sh` | CUADC_UAV02 | x500 (camera via ROS2, no embedded panel, --headless option) |
 
 Key env vars set by launch scripts:
 - `PX4_GZ_MODELS` — points to local `gazebo_models/models/` so PX4 finds our drop-in x500
@@ -64,9 +66,35 @@ Tube obstacles in CUADC_UAV02 use `.obj` mesh files in `gazebo_models/models/tub
 
 ## Python environment
 
-PX4 builds with conda env `px4` (Python 3.10.20). ROS2 Python tools need system Python 3.10. The conda `px4` environment isolates site-packages — system PyQt5 is invisible. For `rqt_image_view`, either use `conda activate px4` with conda-installed PyQt, or deactivate conda and use system Python.
+PX4 builds with conda env `px4` (Python 3.10.20). ROS2 tools need system Python 3.10.
+
+**conda ROS2 conflict**: conda's Python shadows system Python, breaking `ros2 run`. Launch scripts handle this by unsetting `CONDA_PREFIX`, `CONDA_DEFAULT_ENV`, and `PYTHONPATH` before sourcing ROS2. When running ROS2 commands manually, either `conda deactivate` first or use the system Python explicitly: `/usr/bin/python3`.
+
+`rqt_image_view` requires PyQt5. If using conda `px4` env, install it there: `conda install -n px4 -c conda-forge pyqt`.
+
+## Video streaming to QGC
+
+The fast launch script auto-starts a UDP RTP stream for QGroundControl:
+
+```bash
+bash launch/launch_cuadc2_cam_fast.sh           # GUI + ROS2 + UDP stream
+bash launch/launch_cuadc2_cam_fast.sh --headless # no GUI, fastest
+```
+
+QGC setup: Application Settings → General → Video → Source: UDP, Port: 5600.
+
+The pipeline: `Gazebo camera → ros_gz_image → ROS2 /downward_camera → camera_rtsp.py → UDP RTP → QGC`
+
+Standalone streaming (without launching simulation):
+```bash
+python3 tools/camera_rtsp.py --mode udp --port 5600   # UDP for QGC
+python3 tools/camera_rtsp.py --mode tcp --port 5700   # MJPEG for browser
+```
+
+`tools/mediamtx` is available for optional RTSP server.
 
 ## Viewing camera feed
 
-1. **Gazebo GUI** (simplest): After drone spawns, open "Downward Camera" docked panel, use topic picker to select camera topic.
-2. **ROS2 bridge**: `ros2 run ros_gz_image image_bridge <gz_topic> /downward_camera` then `ros2 run rqt_image_view rqt_image_view /downward_camera`.
+1. **Gazebo GUI**: After drone spawns, "Downward Camera" panel → topic picker → select camera.
+2. **QGC**: UDP port 5600 (auto-started by fast launch script).
+3. **ROS2**: `ros2 run ros_gz_image image_bridge <gz_topic> /downward_camera` (then use with YOLO / cv_bridge).
